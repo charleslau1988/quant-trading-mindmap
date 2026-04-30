@@ -598,7 +598,20 @@ function buildChapter(chapter, branchColor) {
       leafList.appendChild(buildLeaf(leafTitle, branchColor));
     });
 
-    wrapper.appendChild(leafList);
+    // 改成横向connector模式
+    const leafWrapper = document.createElement('div');
+    leafWrapper.style.cssText = 'display:flex;gap:0;margin-top:4px;';
+    
+    chapter.children.forEach((leafTitle, idx) => {
+      if (idx > 0) {
+        const conn = document.createElement('div');
+        conn.style.cssText = 'width:16px;height:2px;background:' + branchColor + ';opacity:0.3;align-self:center;';
+        leafWrapper.appendChild(conn);
+      }
+      leafWrapper.appendChild(buildLeaf(leafTitle, branchColor));
+    });
+
+    wrapper.appendChild(leafWrapper);
   }
 
   return wrapper;
